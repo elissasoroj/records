@@ -33,3 +33,12 @@ def iris(species=None):
     sdata = data.to_json(orient="index")
     jdata = json.loads(sdata)
     return jdata
+
+# example code to add an endpoint to run the records.Records function
+from records.records import Records
+
+@app.get("/gbif")
+def gbif(genusKey=3171670, year="2000,2020"):
+    "returns a specific gbif query as JSON"
+    rec = Records(genusKey=genusKey, year=year)
+    return rec.get_single_record()
