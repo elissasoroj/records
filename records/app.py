@@ -41,4 +41,4 @@ from records.records import Records
 def gbif(genusKey=3171670, year="2000,2020"):
     "returns a specific gbif query as JSON"
     rec = Records(genusKey=genusKey, year=year)
-    return rec.get_single_record()
+    return rec.get_single_batch()
