@@ -24,10 +24,10 @@ class Records:
     def generate_genus_key(self):
         "allows user to query using genus string"
 
-        if type(self.genusKey) is int:
-            self.genusKey = genusKey
+        if isinstance(self.genusKey) is int:
+            pass
 
-        elif type(self.genusKey) is str:
+        elif isinstance(self.genusKey) is str:
             getgkey = requests.get(
                 url="https://api.gbif.org/v1/species/search/", 
                 params={
@@ -44,7 +44,7 @@ class Records:
 
     def get_single_batch(self, offset=0, limit=20):
         "returns JSON result for a small batch query"
-        
+
         self.offset = offset
         self.limit = limit
 
@@ -58,7 +58,7 @@ class Records:
             }
         )
         return batch.json()
-     
+
     def get_all_records(self):
         "stores result for all records to self.json and self.df"
         # for storing results
@@ -79,12 +79,10 @@ class Records:
             if jdata["endOfRecords"]:
                 print(f'Done. Found {len(storeres)} records')
                 break
- 
+
             # print a dot on each rep to show progress
             print('.', end='')
 
         #store the results as json and pandas dataframe
         self.json = storeres
         self.df = pd.json_normalize(self.json["results"])
-
-        
